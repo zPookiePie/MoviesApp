@@ -1,5 +1,5 @@
 # 🎬 Movies App
-Um site de catálogo de filmes chamado MoviesApp! Ele consome a API pública do The Movie Database (TMDB) para exibir informações como título, descrição, avaliação e pôsteres dos filmes.
+Um site de catálogo de filmes chamado MoviesApp! Ele consome a API pública do The Movie Database (TMDB) para exibir informações como título, descrição, avaliação e pôsteres dos filmes 🎬
 
 ## ⚙️ Tecnologias utilizadas:
 - React
