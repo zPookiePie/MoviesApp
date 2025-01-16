@@ -1,0 +1,83 @@
+.discovery {
+    margin: 25px 4%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    .reset {
+        border: none;
+        font-size: 18px;
+        color: #fff;
+        background-color: transparent;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        svg {
+            color: #fff;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+    }
+    
+    .placeholder {
+        width: 1px;
+        height: 1px;
+    }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+
+        input {
+            font-size: 15px;
+            padding: 5px;
+            width: 200px;
+        }
+
+        .search {
+            background-color: #6046ff;
+            border: none;
+            border-radius: 2px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        svg {
+            color: #fff;
+            font-size: 18px;
+        }
+    }
+}
+
+.movie-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1em;
+    list-style: none;
+    padding: 25px 4%;
+    width: 100%;
+
+    .movie-not-found {
+        color: #fff;
+        font-size: 18px;
+    }
+
+    @media (max-width: 400px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.load-more-button {
+    background-color: #6046ff;
+    border-radius: 4px;
+    padding: 12px 8px;
+    margin: 4%;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    width: 92%;
+    box-sizing: border-box;
+    font-size: 18px;
+    margin-bottom: 50px;
+}

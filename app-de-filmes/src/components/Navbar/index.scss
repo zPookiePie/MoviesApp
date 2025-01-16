@@ -1,0 +1,33 @@
+.navbar {
+    background-color: #0f172a;
+    padding: 20px 4%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    svg {
+        color: #fff;
+        font-size: 30px;
+        cursor: pointer;
+    }
+
+    svg:hover {
+        color: #6046ff;
+        transition: .6s;
+    }
+
+    .navbar-container {
+        display: flex;
+        align-items: center;
+
+        svg:hover {
+            color: #fff;
+        }
+    }
+
+    .page-title {
+        color: #fff;
+        font-size: 20px;
+        padding-left: 10px;
+    }
+}
