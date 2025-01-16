@@ -28,7 +28,7 @@ function MovieList () {
     const [isSearching, setIsSearching] = useState(false)
     
     useEffect(() => {
-        if (!isSearching) getMovies(page)
+        if (!isSearching) getMovies(page);
     }, [page, isSearching])
     
     const getMovies = (pageNumber: number) => {
@@ -43,7 +43,12 @@ function MovieList () {
             }
             })
             .then((resp) => {
-                setMovies((prevMovies) => [...prevMovies, ...resp.data.results]);
+                setMovies((prevMovies) => {
+                    const uniqueMovies = resp.data.results.filter(
+                        (movie: Movie) => !prevMovies.some((m) => m.id === movie.id)
+                    );
+                    return [...prevMovies, ...uniqueMovies];
+                });
             })
             .catch((error) => {
                 console.error('Erro ao buscar os filmes:', error);
@@ -121,7 +126,9 @@ function MovieList () {
             <ul className="movie-list">
                 {movies.length > 0 ? (
                     movies.map((movie) => (
-                        <MovieCard key={movie.id} movie={movie} />
+                        <MovieCard 
+                        key={movie.id} 
+                        movie={movie} />
                     ))
                 ) : (
                     <p className="movie-not-found">Nenhum filme encontrado.</p>
