@@ -35,7 +35,6 @@ export async function generateMetadata({
         return { title: movie.title };
 }
 
-//buscar os detalhes do filme
 async function getMovieDetails(id: string) {
     const res = await axios.get(`https://api.themoviedb.org/3/movie/${id}`, {
       params: {
@@ -46,10 +45,14 @@ async function getMovieDetails(id: string) {
     return res.data;
   }
 
-// página para exibir os detalhes do filme
-export default async function MovieDetailsPage({ params, }: { params: { id: string } }) {
-
+export default async function MovieDetailsPage({
+    params,
+  }: {
+    params: { id: string };
+  }) {
     const movie: MovieDetails = await getMovieDetails(params.id);
+
+
 
     return (
         <div className="movie-details">
