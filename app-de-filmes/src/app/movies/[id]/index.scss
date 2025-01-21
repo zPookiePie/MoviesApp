@@ -1,0 +1,102 @@
+.movie-details {
+    position: relative;
+    color: #fff;
+    height: 100vh;
+    align-items: center;
+    align-content: center;
+
+    .background-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        background-size: cover;
+        background-position: center;
+        filter: brightness(40%);
+        background-repeat: no-repeat;
+    }
+
+    main {
+        display: flex;
+        padding: 50px;
+        align-content: center;
+        max-width: 1350px;
+        margin: 0 auto;
+        font-size: 20px;
+
+
+        p {
+            padding: 12px 0;
+        }
+
+        span {
+            font-size: 2em;
+        }
+
+        h1 {
+            padding-bottom: 25px;
+        }
+
+        img {
+            border-radius: 20px;
+            width: 380px;
+            margin-right: 30px;
+        }
+
+        ul {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+            margin-top: 10px;
+            text-align: center;
+            flex-wrap: wrap;
+
+            li {
+                padding: 5px 15px;
+                border: 2px solid #fff;
+                border-radius: 30px;
+                background-color: rgba(0, 0, 0, 0.61);
+            }
+        }
+
+        .reset {
+            font-size: 22px;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            margin-top: 40px;
+    
+            svg {
+                color: #fff;
+                font-size: 22px;
+                margin-right: 10px;
+            }
+        }
+
+        .reset:hover {
+            text-decoration: underline;
+            transition: .6s;
+        }
+
+        @media (max-width: 900px) {
+
+            img {
+                display: none;
+            }
+
+            span {
+                font-size: 1.5em;
+            }
+        }
+    }
+
+    @media (max-width: 900px) {
+        main {
+            padding: 20px;
+        }
+    }
+}

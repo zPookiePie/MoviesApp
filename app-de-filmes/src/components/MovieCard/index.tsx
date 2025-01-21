@@ -1,6 +1,8 @@
 import Movie from "@/types/movie"
 import RatingStar from "../RatingStar";
 
+import { useRouter } from 'next/navigation'; 
+
 import './index.scss'
 
 export interface Props {
@@ -11,8 +13,15 @@ function MovieCard(props: Props) {
     
     const movie = props.movie;
 
+
+    const router = useRouter();
+
+    const handleViewDetails = () => {
+        router.push(`/movies/${movie.id}`);
+    };
+
     return (
-        <li className="movie-card">
+        <li className="movie-card" onClick={handleViewDetails}>
             <div className="poster-movie">
                 <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
             </div>
@@ -35,7 +44,7 @@ function MovieCard(props: Props) {
                     </p>
                     }
 
-                    <button className="btn">Veja mais</button>
+                    <button className="btn" onClick={handleViewDetails} >Veja mais</button>
 
                 </div>
             </div>
