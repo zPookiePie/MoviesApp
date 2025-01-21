@@ -1,10 +1,13 @@
-import Link from 'next/link';
-import { Metadata } from 'next';
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import axios from 'axios';
 
-import './index.scss';
-import RatingStar from '@/components/RatingStar';
 import { RxReset } from 'react-icons/rx';
+import RatingStar from '@/components/RatingStar';
+
+import './index.scss';
 
 interface MovieDetails {
     id: number;
@@ -17,42 +20,60 @@ interface MovieDetails {
     genres: { id: number; name: string }[];
 }
 
-export async function generateMetadata({
-    params,
-  }: {
-    params: { id: string };
-  }): Promise<Metadata> {
-    const res = await axios.get(
-      `https://api.themoviedb.org/3/movie/${params.id}`,
-      {
-        params: {
-          api_key: 'd28bd824e1883bb5ec5719a53b274949',
-          language: 'pt-BR',
-        },
-      }
-    );
-        const movie = res.data;
-        return { title: movie.title };
-}
+function MovieDetailsPage() {
+    const { id: movieId } = useParams();
+    const [movie, setMovie] = useState<MovieDetails | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
 
-async function getMovieDetails(id: string) {
-    const res = await axios.get(`https://api.themoviedb.org/3/movie/${id}`, {
-      params: {
-        api_key: 'd28bd824e1883bb5ec5719a53b274949',
-        language: 'pt-BR',
-      },
-    });
-    return res.data;
-  }
+    useEffect(() => {
+        if (typeof movieId === 'string') {
+        fetchMovieDetails(movieId);
+        }
+    }, [movieId]);
 
-export default async function MovieDetailsPage({
-    params,
-  }: {
-    params: { id: string };
-  }) {
-    const movie: MovieDetails = await getMovieDetails(params.id);
+    const fetchMovieDetails = async (id: string) => {
+    setLoading(true);
+    setError(null);
 
+    try {
+        const res = await axios.get(`https://api.themoviedb.org/3/movie/${id}`, {
+            params: {
+            api_key: 'd28bd824e1883bb5ec5719a53b274949',
+            language: 'pt-BR',
+            },
+        });
+        setMovie(res.data);
+        } catch (err) {
+        console.error('Erro ao buscar os detalhes do filme:', err);
+        setError('Erro ao carregar os detalhes do filme.');
+        } finally {
+        setLoading(false);
+        }
+    };
 
+    if (loading) {
+        return <p>Carregando...</p>;
+    }
+
+    if (error) {
+        return (
+        <div className="movie-details">
+            <h1>{error}</h1>
+            <button onClick={() => window.history.back()} className="reset">
+            <RxReset /> Voltar
+            </button>
+        </div>
+        );
+    }
+
+    if (!movie) {
+        return (
+        <div className="movie-details">
+            <p>Selecione um filme para ver os detalhes.</p>
+        </div>
+        );
+    }
 
     return (
         <div className="movie-details">
@@ -79,11 +100,13 @@ export default async function MovieDetailsPage({
                 <li key={genre.id}>{genre.name}</li>
                 ))}
             </ul>
-            <Link href="/" className="reset">
+            <button onClick={() => window.history.back()} className="reset">
                 <RxReset /> Voltar
-            </Link>
+            </button>
             </div>
         </main>
         </div>
     );
-}
+    }
+
+    export default MovieDetailsPage;
