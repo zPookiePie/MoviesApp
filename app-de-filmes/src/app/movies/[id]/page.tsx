@@ -17,55 +17,39 @@ interface MovieDetails {
     genres: { id: number; name: string }[];
 }
 
-//gerar metadata dinamicamente com base no filme
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-    try {
-        const res = await axios.get(`https://api.themoviedb.org/3/movie/${params.id}`, {
+export async function generateMetadata({
+    params,
+  }: {
+    params: { id: string };
+  }): Promise<Metadata> {
+    const res = await axios.get(
+      `https://api.themoviedb.org/3/movie/${params.id}`,
+      {
         params: {
-            api_key: 'd28bd824e1883bb5ec5719a53b274949',
-            language: 'pt-BR',
+          api_key: 'd28bd824e1883bb5ec5719a53b274949',
+          language: 'pt-BR',
         },
-        });
+      }
+    );
         const movie = res.data;
         return { title: movie.title };
-    } catch (error) {
-        console.error('Erro ao buscar metadata:', error);
-        return { title: 'Filme não encontrado' };
-    }
 }
 
 //buscar os detalhes do filme
-async function getMovieDetails(id: string): Promise<MovieDetails> {
-    try {
-        const res = await axios.get(`https://api.themoviedb.org/3/movie/${id}`, {
-        params: {
-            api_key: 'd28bd824e1883bb5ec5719a53b274949',
-            language: 'pt-BR',
-        },
-        });
-        return res.data;
-    } catch (error) {
-        console.error('Erro ao buscar os detalhes do filme:', error);
-        throw new Error('Erro ao buscar os detalhes do filme.');
-    }
-}
+async function getMovieDetails(id: string) {
+    const res = await axios.get(`https://api.themoviedb.org/3/movie/${id}`, {
+      params: {
+        api_key: 'd28bd824e1883bb5ec5719a53b274949',
+        language: 'pt-BR',
+      },
+    });
+    return res.data;
+  }
 
 // página para exibir os detalhes do filme
-export default async function MovieDetailsPage({ params }: { params: { id: string } }) {
-    let movie: MovieDetails;
+export default async function MovieDetailsPage({ params, }: { params: { id: string } }) {
 
-    try {
-        movie = await getMovieDetails(params.id);
-    } catch (error) {
-        return (
-        <div className="movie-details">
-            <h1>Erro ao carregar os detalhes do filme.</h1>
-            <Link href="/" className="reset">
-            <RxReset /> Voltar
-            </Link>
-        </div>
-        );
-}
+    const movie: MovieDetails = await getMovieDetails(params.id);
 
     return (
         <div className="movie-details">
