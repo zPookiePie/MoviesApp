@@ -38,15 +38,18 @@ function MovieList () {
             url: 'https://api.themoviedb.org/3/discover/movie',
             params: {
                 api_key: 'd28bd824e1883bb5ec5719a53b274949',
+                include_adult: false,
                 language: 'pt-BR',
                 page: pageNumber,
             }
             })
             .then((resp) => {
                 setMovies((prevMovies) => {
+                    
                     const uniqueMovies = resp.data.results.filter(
                         (movie: Movie) => !prevMovies.some((m) => m.id === movie.id)
                     );
+
                     return [...prevMovies, ...uniqueMovies];
                 });
             })
